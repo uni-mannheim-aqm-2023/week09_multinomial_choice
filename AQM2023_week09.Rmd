@@ -2,14 +2,14 @@
 title: "AQM Week 09 -- Multinomial Choice Models"
 author: 
   - Oliver Rittmann
-  - Viktoriia Semenova
-date: "April 28, 2022"
+  - Domantas Undzėnas
+date: "April 27, 2023"
 output:
-  html_notebook:
+  html_document:
     toc: true
     toc_float: true
     css: css/lab.css
-  html_document:
+  html_notebook:
     toc: true
     toc_float: true
     css: css/lab.css
@@ -56,7 +56,7 @@ sapply(p_needed, require, character.only = TRUE)
 
 Welcome back from the easter break!
 
-If you are searching for reseources on how to organize the data for your term paper: Take a look at this blog post Denis Cohen, Cosima Meyer, Marcel and myself wrote last year: [Efficient Data Management in R](https://www.mzes.uni-mannheim.de/socialsciencedatalab/article/efficient-data-r/). The interesting part starts at "Data Management and Data Manipulation" (you know git by now). We introduce the basic tools you need to manage your data using either base R or tidyverse and then walk through one example where we create an analysis data frame from multiple sources. All the code and data is readily available on github so you can work through the code by yourself. **For your term paper:** If you are facing a concrete problem that you cannot solve: Do not hesitate to ask me for help.
+If you are searching for reseources on how to organize the data for your term paper: Take a look at this blog post Denis Cohen, Cosima Meyer, Marcel and Oliver wrote last year: [Efficient Data Management in R](https://www.mzes.uni-mannheim.de/socialsciencedatalab/article/efficient-data-r/). The interesting part starts at "Data Management and Data Manipulation" (you know git by now). We introduce the basic tools you need to manage your data using either base R or tidyverse and then walk through one example where we create an analysis data frame from multiple sources. All the code and data is readily available on github so you can work through the code by yourself. **For your term paper:** If you are facing a concrete problem that you cannot solve: Do not hesitate to ask us for help.
 
 ---
 
@@ -542,119 +542,8 @@ With the plots, what can you say about the effect of being religious on vote cho
 Simulate predicted probabilities and the surrounding uncertainty using the observed value approach to visualize the **effect of income** (eg. a range of 10 values of income -- don't use more, ten will already take a little while to compute).
 
 ```{r Exercise I, eval=F} 
-# start with the scenario (the steps before are the same)
 
 
-# Calculate the utilities V
-
-
-# Loop over the scenarios
-
-
-# Now we want to summarize over multiple dimensions (calculate Sexp)
-
-
-# With V and Sexp we have everything to get P
-
-
-# Summarize to get our quantities of interest
-# QoImean <- 
-# QoICI <-
-
-# if you did everything correctly, you can plot your results
-plot(
-  incomeScenario,
-  QoImean[1,],
-  type = "n",
-  ylim = c(0, 0.65),
-  bty = "n",
-  ylab = "Predicted Probability of voting for Party",
-  xlab = "income Variable",
-  main = "The Effect of Income",
-  las = 1
-)
-
-for (i in 1:4) {
-  lines(incomeScenario, QoImean[i,], col = partycolors[i])
-}
-
-for (i in 1:4) {
-  polygon(
-    c(rev(incomeScenario), incomeScenario),
-    c(rev(QoICI[1, i,]), QoICI[2, i,]),
-    col = adjustcolor("lightgrey", alpha = 0.2) ,
-    border = NA
-  )
-}
-
-legend(
-  "topright",
-  legend = levels(df$vote),
-  lty = 1,
-  col = partycolors,
-  bty = "n"
-)
-```
-
-SOLUTION:
-
-```{r Exercise I} 
-# Set up your scenarios
-income_seq <- seq(min(df$income), max(df$income), length.out = 10)
-
-n_scenarios <- length(income_seq) # Number of scenarios
-
-cases <- array(NA, c(dim(X),
-                     n_scenarios))  
-
-cases[, , ] <- X
-
-sel <- which(colnames(X) == "income")
-
-for (i in 1:n_scenarios) {
-  cases[, sel, i] <- income_seq[i]
-}
-
-# Now our array V will have four (!) dimensions
-V <- 
-  array(NA, 
-        dim = c(nrow(X),       # number of observations
-                J,             # number of categories
-                nsim,          # number of simulations
-                n_scenarios))  # number of scenarios
-
-
-# Loop over the scenarios
-for(i in 1:n_scenarios){
-  V[,,,i] <- apply(beta_S[,,], c(1,3), 
-                   function(bs) cases[,,i] %*% bs)
-}
-
-# Have a look at the dimensions
-dim(V)
-
-# Now we want to summarize over multiple dimensions
-Sexp <- apply(V, c(1,3,4), function(v) sum(exp(v)))
-
-dim(Sexp)
-
-# With V and Sexp we have everything to get P
-P <- array(NA, c(nsim, J, n_scenarios))
-
-for (scen in 1:n_scenarios) {
-  for (category in 1:J) {
-    P[, category, scen] <- 
-      apply(exp(V[, category, , scen]) / Sexp[, , scen], 2, mean)
-  }
-}
-
-dim(P)
-
-# Summarize to get our quantities of interest
-QoI_Mean <- apply(P, c(2,3), mean)
-QoI_CI <-
-  apply(P, c(2,3), function(x)
-    quantile(x, probs = c(0.025, 0.975)))
 
 
 # Plot the results
@@ -695,4 +584,7 @@ legend(
 )
 ```
 
-# Concluding Remarks
+
+## Concluding Remarks
+
+No homework this week! But homework 5 will be challenging and reviewing this week's material early may be a good idea.
