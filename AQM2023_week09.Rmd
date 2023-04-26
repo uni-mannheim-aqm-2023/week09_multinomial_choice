@@ -54,9 +54,11 @@ sapply(p_needed, require, character.only = TRUE)
 
 ## Before we get started
 
-Welcome back from the easter break!
+If you are searching for reseources on how to organize the data for your term paper: Take a look at this blog post Denis Cohen, Cosima Meyer, Marcel Neunhoeffer and Oliver wrote last year: [Efficient Data Management in R](https://www.mzes.uni-mannheim.de/socialsciencedatalab/article/efficient-data-r/). The interesting part starts at "Data Management and Data Manipulation" (you know git by now). We introduce the basic tools you need to manage your data using either base R or tidyverse and then walk through one example where we create an analysis data frame from multiple sources. All the code and data is readily available on github so you can work through the code by yourself. 
 
-If you are searching for reseources on how to organize the data for your term paper: Take a look at this blog post Denis Cohen, Cosima Meyer, Marcel and Oliver wrote last year: [Efficient Data Management in R](https://www.mzes.uni-mannheim.de/socialsciencedatalab/article/efficient-data-r/). The interesting part starts at "Data Management and Data Manipulation" (you know git by now). We introduce the basic tools you need to manage your data using either base R or tidyverse and then walk through one example where we create an analysis data frame from multiple sources. All the code and data is readily available on github so you can work through the code by yourself. **For your term paper:** If you are facing a concrete problem that you cannot solve: Do not hesitate to ask us for help.
+Probably even better, there is a new open-access book by Nils B. Weidmann on data management: [Data Management for Social Scientists](https://www.cambridge.org/core/books/data-management-for-social-scientists/33356BF6DE034B25239DCF7C436CBFCD). There is also an accompanying [website](https://dmbook.org) with data, additional instructions, and exercises.
+
+**For your term paper:** If you are facing a concrete problem that you cannot solve: Do not hesitate to ask us for help.
 
 ---
 
@@ -75,7 +77,7 @@ In this session, we will learn about:
 
 Our main goal for today is to estimate the conditional probability of various discrete and unordered choices, based on a solid foundation in behavioral theory. 
 
-In surveys respondents are often asked which party they would vote for in an upcoming election or which party they have voted for in the previous election. As an example, consider the following question:
+In surveys, respondents are often asked which party they would vote for in an upcoming election or which party they have voted for in the previous election. As an example, consider the following question:
 
 > What party did you vote for in the last election?
 
